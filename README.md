@@ -1,50 +1,124 @@
 <p align="center">
-<img src="https://i.imgur.com/Clzj7Xs.png" alt="osTicket logo"/>
+  <!-- Replace this image with something relevant to osTicket or your own custom banner -->
+  <img src="https://i.imgur.com/Clzj7Xs.png" alt="osTicket logo" width="300"/>
 </p>
 
-<h1>osTicket - Prerequisites and Installation</h1>
-This tutorial outlines the prerequisites and installation of the open-source help desk ticketing system osTicket.<br />
+<h1>osTicket - Prerequisites & Installation Lab</h1>
 
-<h2>Environments and Technologies Used</h2>
-
-- Microsoft Azure (Virtual Machines/Compute)
-- Remote Desktop
-- Internet Information Services (IIS)
-
-<h2>Operating Systems Used </h2>
-
-- Windows 10</b> (21H2)
-
-<h2>List of Prerequisites</h2>
-
-- Item 1
-- Item 2
-- Item 3
-- Item 4
-- Item 5
-
-<h2>Installation Steps</h2>
-
+<h2>Project Summary</h2>
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  This lab demonstrates how I deployed a Windows 10 virtual machine in Microsoft Azure, 
+  installed and configured IIS, PHP, MySQL, and then set up the open-source help desk system 
+  <strong>osTicket</strong>. Throughout this process, I gained hands-on experience with Azure VMs, 
+  web server configuration, and database setup. I also tested the final installation by creating 
+  and managing support tickets within the osTicket environment.
 </p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
 
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
+<ul>
+  <li>
+    <strong>Operating Systems & Languages:</strong>
+    <ul>
+      <li>Windows 10 (21H2) on Azure</li>
+      <li>PowerShell commands (for VM & network checks)</li>
+      <li>PHP & MySQL for the osTicket backend</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Environments & Services:</strong>
+    <ul>
+      <li>Azure Portal (Resource Groups, Virtual Machines)</li>
+      <li>Remote Desktop Protocol (RDP)</li>
+      <li>Internet Information Services (IIS)</li>
+      <li>MySQL Community Server</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Technologies:</strong>
+    <ul>
+      <li>osTicket (help desk ticketing system)</li>
+      <li>PHP Manager for IIS</li>
+      <li>Web Configuration & Permissions</li>
+    </ul>
+  </li>
+</ul>
 
+<hr />
+
+<h2>Steps & Screenshots</h2>
+<ol>
+  <li>
+    <strong>Create a Windows 10 VM in Microsoft Azure</strong><br />
+    I created a new Resource Group named <code>RG-osTicket-Demo</code> in East US 2 (for example),
+    then deployed a Windows 10 virtual machine. Once configured, I connected via RDP to manage 
+    the operating system and proceed with the lab.
+    <br /><br />
+    <img src="(SCREENSHOT #1)" alt="Azure VM Creation" width="600" />
+  </li>
+  <br />
+
+  <li>
+    <strong>Enable IIS (Internet Information Services)</strong><br />
+    On the Windows 10 VM, I navigated to <em>Control Panel &gt; Programs &gt; Turn Windows features on or off</em>, 
+    then enabled IIS along with all required web server features. This step ensures the VM can host a local website 
+    to run osTicket.
+    <br /><br />
+    <img src="(SCREENSHOT #2)" alt="Enable IIS Features" width="600" />
+  </li>
+  <br />
+
+  <li>
+    <strong>Install PHP Manager & MySQL</strong><br />
+    I installed <strong>PHP Manager for IIS</strong> and <strong>MySQL Community Server</strong>. 
+    Configuring MySQL with a root password allowed osTicket to connect to the database for storing ticket and user information.
+    <br /><br />
+    <img src="(SCREENSHOT #3)" alt="PHP Manager Installation" width="600" />
+    <br /><br />
+    <img src="(SCREENSHOT #4)" alt="MySQL Installation" width="600" />
+  </li>
+  <br />
+
+  <li>
+    <strong>Download and Configure osTicket</strong><br />
+    After downloading osTicket from the official website, I extracted the files into 
+    <code>C:\inetpub\wwwroot\osticket</code>. I renamed <code>ost-sampleconfig.php</code> to <code>ost-config.php</code> 
+    and entered my MySQL credentials. Finally, I gave <code>IIS_IUSRS</code> write permissions on the config file to allow 
+    the installer to complete.
+    <br /><br />
+    <img src="(SCREENSHOT #5)" alt="Extract osTicket Files" width="600" />
+    <br /><br />
+    <img src="(SCREENSHOT #6)" alt="ost-config.php Setup" width="600" />
+  </li>
+  <br />
+
+  <li>
+    <strong>Run the osTicket Installation Wizard</strong><br />
+    Using a web browser, I navigated to <code>http://&lt;PublicIP&gt;/osticket/</code>. The installation wizard 
+    let me configure the database connection, create the admin account, and finalize my help desk settings. 
+    Once the setup completed, I removed write permissions from <code>ost-config.php</code> for security.
+    <br /><br />
+    <img src="(SCREENSHOT #7)" alt="osTicket Setup Wizard" width="600" />
+    <br /><br />
+    <img src="(SCREENSHOT #8)" alt="osTicket Installation Complete" width="600" />
+  </li>
+  <br />
+
+  <li>
+    <strong>Testing the Help Desk</strong><br />
+    Lastly, I confirmed everything worked by logging into the osTicket Admin Panel, creating a test user ticket, 
+    and ensuring the system handled ticket creation and assignment successfully.
+    <br /><br />
+    <img src="(SCREENSHOT #9)" alt="Admin Panel Dashboard" width="600" />
+    <br /><br />
+    <img src="(SCREENSHOT #10)" alt="Ticket Creation" width="600" />
+  </li>
+</ol>
+
+<hr />
+
+<h2>Conclusion</h2>
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+  Through this lab, I learned how to configure a cloud-hosted Windows environment in Azure, install and configure 
+  the necessary web stack components (IIS, PHP, MySQL), and deploy the osTicket help desk platform. 
+  This hands-on experience showcased the importance of correct file permissions, database integration, and 
+  user account management for a successful ticketing system.
 </p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
