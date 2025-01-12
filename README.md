@@ -48,11 +48,13 @@
 <ol>
   <li>
     <strong>Create a Windows 10 VM in Microsoft Azure</strong><br />
-    I created a new Resource Group named <code>RG-osTicket-Demo</code> in East US 2 (for example),
+    I created a new Resource Group named <code>osTicket</code> using East US 2,
     then deployed a Windows 10 virtual machine. Once configured, I connected via RDP to manage 
     the operating system and proceed with the lab.
     <br /><br />
-    <img src="(SCREENSHOT #1)" alt="Azure VM Creation" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/0YDE2fS.png" alt="Azure VM Creation" width="600" />
+    </p>
   </li>
   <br />
 
@@ -62,7 +64,9 @@
     then enabled IIS along with all required web server features. This step ensures the VM can host a local website 
     to run osTicket.
     <br /><br />
-    <img src="(SCREENSHOT #2)" alt="Enable IIS Features" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/1bAfSdH.png" alt="Enable IIS Features" width="600" />
+    </p>
   </li>
   <br />
 
@@ -71,9 +75,11 @@
     I installed <strong>PHP Manager for IIS</strong> and <strong>MySQL Community Server</strong>. 
     Configuring MySQL with a root password allowed osTicket to connect to the database for storing ticket and user information.
     <br /><br />
-    <img src="(SCREENSHOT #3)" alt="PHP Manager Installation" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/qu2uram.png" alt="PHP Manager Installation" width="600" />
     <br /><br />
-    <img src="(SCREENSHOT #4)" alt="MySQL Installation" width="600" />
+    <img src="https://i.imgur.com/vugsBem.png" alt="MySQL Installation" width="600" />
+    </p>
   </li>
   <br />
 
@@ -84,9 +90,11 @@
     and entered my MySQL credentials. Finally, I gave <code>IIS_IUSRS</code> write permissions on the config file to allow 
     the installer to complete.
     <br /><br />
-    <img src="(SCREENSHOT #5)" alt="Extract osTicket Files" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/4UwcJeS.png" alt="Extract osTicket Files" width="600" />
     <br /><br />
-    <img src="(SCREENSHOT #6)" alt="ost-config.php Setup" width="600" />
+    <img src="https://i.imgur.com/VpZd2Ty.png" alt="ost-config.php Setup" width="600" />
+    </p>
   </li>
   <br />
 
@@ -96,9 +104,11 @@
     let me configure the database connection, create the admin account, and finalize my help desk settings. 
     Once the setup completed, I removed write permissions from <code>ost-config.php</code> for security.
     <br /><br />
-    <img src="(SCREENSHOT #7)" alt="osTicket Setup Wizard" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/MAGmeJT.png" alt="osTicket Setup Wizard" width="600" />
     <br /><br />
-    <img src="(SCREENSHOT #8)" alt="osTicket Installation Complete" width="600" />
+    <img src="https://i.imgur.com/9TUO8h5.png" alt="osTicket Installation Complete" width="600" />
+    </p>
   </li>
   <br />
 
@@ -107,9 +117,11 @@
     Lastly, I confirmed everything worked by logging into the osTicket Admin Panel, creating a test user ticket, 
     and ensuring the system handled ticket creation and assignment successfully.
     <br /><br />
-    <img src="(SCREENSHOT #9)" alt="Admin Panel Dashboard" width="600" />
+    <p align="center">
+    <img src="https://i.imgur.com/PgqWruI.png" alt="Admin Panel Dashboard" width="600" />
     <br /><br />
-    <img src="(SCREENSHOT #10)" alt="Ticket Creation" width="600" />
+    <img src="https://i.imgur.com/eMhNhSE.png" alt="Ticket Creation" width="600" />
+    </p>
   </li>
 </ol>
 
