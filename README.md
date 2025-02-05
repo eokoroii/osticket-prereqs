@@ -1,44 +1,24 @@
-<p align="center">
-  <!-- Replace this image with something relevant to osTicket or your own custom banner -->
-  <img src="https://i.imgur.com/Clzj7Xs.png" alt="osTicket logo" width="300"/>
-</p>
-
-<h1>osTicket - Prerequisites & Installation Lab</h1>
+<h1>osTicket Lab 1: Installation on Windows IIS</h1>
 
 <h2>Project Summary</h2>
 <p>
-  This lab demonstrates how I deployed a Windows 10 virtual machine in Microsoft Azure, 
-  installed and configured IIS, PHP, MySQL, and then set up the open-source help desk system 
-  <strong>osTicket</strong>. Throughout this process, I gained hands-on experience with Azure VMs, 
-  web server configuration, and database setup. I also tested the final installation by creating 
-  and managing support tickets within the osTicket environment.
+  In this section of my osTicket labs, I demonstrate how I deployed osTicket 
+  on a Windows Server VM in Azure. It covers installing IIS, PHP, MySQL, 
+  and finalizing the osTicket web installer.
 </p>
 
 <ul>
-  <li>
-    <strong>Operating Systems & Languages:</strong>
+  <li><strong>Key Components:</strong>
     <ul>
-      <li>Windows 10 (21H2) on Azure</li>
-      <li>PowerShell commands (for VM & network checks)</li>
-      <li>PHP & MySQL for the osTicket backend</li>
+      <li>Azure Windows Server VM</li>
+      <li>IIS (Internet Information Services)</li>
+      <li>PHP &amp; MySQL</li>
+      <li>HeidiSQL for DB management</li>
+      <li>osTicket v1.15.8</li>
     </ul>
   </li>
-  <li>
-    <strong>Environments & Services:</strong>
-    <ul>
-      <li>Azure Portal (Resource Groups, Virtual Machines)</li>
-      <li>Remote Desktop Protocol (RDP)</li>
-      <li>Internet Information Services (IIS)</li>
-      <li>MySQL Community Server</li>
-    </ul>
-  </li>
-  <li>
-    <strong>Technologies:</strong>
-    <ul>
-      <li>osTicket (help desk ticketing system)</li>
-      <li>PHP Manager for IIS</li>
-      <li>Web Configuration & Permissions</li>
-    </ul>
+  <li><strong>Goal:</strong> 
+    Set up a functional ticketing platform ready for admin configuration and end-user ticket creation.
   </li>
 </ul>
 
@@ -47,80 +27,155 @@
 <h2>Steps & Screenshots</h2>
 <ol>
   <li>
-    <strong>Create a Windows 10 VM in Microsoft Azure</strong><br />
-    I created a new Resource Group named <code>osTicket</code> using East US 2,
-    then deployed a Windows 10 virtual machine. Once configured, I connected via RDP to manage 
-    the operating system and proceed with the lab.
+    <strong>Create &amp; RDP into Windows Server VM</strong><br />
+    I spun up a Windows Server (2019 or 2022) VM in Azure, ensuring RDP port 3389 was open. 
+    After deployment, I noted the Public IP and connected via Remote Desktop.
     <br /><br />
     <p align="center">
-    <img src="https://i.imgur.com/0YDE2fS.png" alt="Azure VM Creation" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=Azure+Win+Server+VM" alt="Windows Server VM creation" width="600" />
+      <br />
+      <em>Figure 2.1 – Windows Server VM in Azure.</em>
     </p>
   </li>
   <br />
 
   <li>
-    <strong>Enable IIS (Internet Information Services)</strong><br />
-    On the Windows 10 VM, I navigated to <em>Control Panel &gt; Programs &gt; Turn Windows features on or off</em>, 
-    then enabled IIS along with all required web server features. This step ensures the VM can host a local website 
-    to run osTicket.
-    <br /><br />
+    <strong>Enable IIS &amp; Required Features</strong><br />
+    In <em>Control Panel &gt; Programs &gt; Turn Windows features on or off</em>, 
+    I enabled:
+    <ul>
+      <li>IIS (Web Server)</li>
+      <li>World Wide Web Services</li>
+      <li>Application Development Features (CGI)</li>
+    </ul>
     <p align="center">
-    <img src="https://i.imgur.com/1bAfSdH.png" alt="Enable IIS Features" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=IIS+Enable" alt="Enabling IIS features" width="600" />
+      <br />
+      <em>Figure 2.2 – Enabling IIS and other Windows features.</em>
     </p>
   </li>
   <br />
 
   <li>
-    <strong>Install PHP Manager & MySQL</strong><br />
-    I installed <strong>PHP Manager for IIS</strong> and <strong>MySQL Community Server</strong>. 
-    Configuring MySQL with a root password allowed osTicket to connect to the database for storing ticket and user information.
-    <br /><br />
+    <strong>Installing PHP Manager, Rewrite Module</strong><br />
+    From my <em>osTicket-Installation-Files</em> package, I installed:
+    <ul>
+      <li>PHP Manager for IIS</li>
+      <li>IIS Rewrite Module</li>
+      <li>VC_redist.x86 (if needed)</li>
+    </ul>
     <p align="center">
-    <img src="https://i.imgur.com/qu2uram.png" alt="PHP Manager Installation" width="600" />
-    <br /><br />
-    <img src="https://i.imgur.com/vugsBem.png" alt="MySQL Installation" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=PHP+Manager+Install" alt="PHP Manager install" width="600" />
+      <br />
+      <em>Figure 2.3 – Installing PHP Manager &amp; Rewrite Module.</em>
     </p>
   </li>
   <br />
 
   <li>
-    <strong>Download and Configure osTicket</strong><br />
-    After downloading osTicket from the official website, I extracted the files into 
-    <code>C:\inetpub\wwwroot\osticket</code>. I renamed <code>ost-sampleconfig.php</code> to <code>ost-config.php</code> 
-    and entered my MySQL credentials. Finally, I gave <code>IIS_IUSRS</code> write permissions on the config file to allow 
-    the installer to complete.
+    <strong>Extract &amp; Configure PHP</strong><br />
+    I created <code>C:\PHP</code> and unzipped <em>php-7.3.8-nts-Win32-VC15-x86.zip</em> into it. 
+    Then, from <em>IIS Manager &gt; PHP Manager</em>, I registered <code>php-cgi.exe</code>.
     <br /><br />
     <p align="center">
-    <img src="https://i.imgur.com/4UwcJeS.png" alt="Extract osTicket Files" width="600" />
-    <br /><br />
-    <img src="https://i.imgur.com/VpZd2Ty.png" alt="ost-config.php Setup" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=PHP+in+IIS" alt="PHP in IIS" width="600" />
+      <br />
+      <em>Figure 2.4 – Registering PHP in IIS Manager.</em>
     </p>
   </li>
   <br />
 
   <li>
-    <strong>Run the osTicket Installation Wizard</strong><br />
-    Using a web browser, I navigated to <code>http://&lt;PublicIP&gt;/osticket/</code>. The installation wizard 
-    let me configure the database connection, create the admin account, and finalize my help desk settings. 
-    Once the setup completed, I removed write permissions from <code>ost-config.php</code> for security.
+    <strong>Install MySQL (Typical Setup)</strong><br />
+    I downloaded MySQL, ran the installer, and set the root password. 
+    This gives osTicket a database for storing tickets and configurations.
     <br /><br />
     <p align="center">
-    <img src="https://i.imgur.com/MAGmeJT.png" alt="osTicket Setup Wizard" width="600" />
-    <br /><br />
-    <img src="https://i.imgur.com/9TUO8h5.png" alt="osTicket Installation Complete" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=MySQL+Install" alt="MySQL installation wizard" width="600" />
+      <br />
+      <em>Figure 2.5 – Configuring MySQL root credentials.</em>
     </p>
   </li>
   <br />
 
   <li>
-    <strong>Testing the Help Desk</strong><br />
-    Lastly, I confirmed everything worked by logging into the osTicket Admin Panel, creating a test user ticket, 
-    and ensuring the system handled ticket creation and assignment successfully.
+    <strong>Install HeidiSQL</strong><br />
+    HeidiSQL makes database management simple. I installed it to create and manage the <code>osTicket</code> database. 
     <br /><br />
     <p align="center">
-    <img src="https://i.imgur.com/PgqWruI.png" alt="Admin Panel Dashboard" width="600" />
+      <img src="https://via.placeholder.com/600x350.png?text=HeidiSQL+Install" alt="HeidiSQL installation" width="600" />
+      <br />
+      <em>Figure 2.6 – Installing HeidiSQL.</em>
+    </p>
+  </li>
+  <br />
+
+  <li>
+    <strong>Unzip &amp; Deploy osTicket Files</strong><br />
+    From the <em>osTicket-v1.15.8.zip</em> package, I unzipped the contents into <code>C:\inetpub\wwwroot</code> 
+    and renamed the <em>upload</em> folder to <em>osTicket</em>.
     <br /><br />
-    <img src="https://i.imgur.com/eMhNhSE.png" alt="Ticket Creation" width="600" />
+    <p align="center">
+      <img src="https://via.placeholder.com/600x350.png?text=osTicket+Unzipped" alt="osTicket files in IIS" width="600" />
+      <br />
+      <em>Figure 2.7 – Placing osTicket files in wwwroot.</em>
+    </p>
+  </li>
+  <br />
+
+  <li>
+    <strong>First Look at osTicket Installer</strong><br />
+    In IIS Manager, under <em>Default Web Site &gt; osTicket</em>, I selected <em>Browse *:80</em>. 
+    This opened the osTicket installer page in my browser.
+    <br /><br />
+    <p align="center">
+      <img src="https://via.placeholder.com/600x350.png?text=osTicket+Installer" alt="osTicket initial installer" width="600" />
+      <br />
+      <em>Figure 2.8 – osTicket installation welcome page.</em>
+    </p>
+  </li>
+  <br />
+
+  <li>
+    <strong>Enable PHP Extensions</strong><br />
+    Within <em>PHP Manager &gt; Enable or disable an extension</em>, 
+    I enabled <code>php_imap.dll</code>, <code>php_intl.dll</code>, and <code>php_opcache.dll</code> 
+    to remove warnings in the installer.
+    <br /><br />
+    <p align="center">
+      <img src="https://via.placeholder.com/600x350.png?text=PHP+Extensions+Enabled" alt="PHP extension settings" width="600" />
+      <br />
+      <em>Figure 2.9 – Confirming required PHP extensions are active.</em>
+    </p>
+  </li>
+  <br />
+
+  <li>
+    <strong>Configure ost-config.php</strong><br />
+    I renamed <code>ost-sampleconfig.php</code> to <code>ost-config.php</code> and 
+    adjusted its file permissions so the installer could write to it.
+    <br /><br />
+    <p align="center">
+      <img src="https://via.placeholder.com/600x350.png?text=Ost-config+Permissions" alt="Editing file security" width="600" />
+      <br />
+      <em>Figure 2.10 – Setting file permissions for ost-config.php.</em>
+    </p>
+  </li>
+  <br />
+
+  <li>
+    <strong>Create Database &amp; Complete Installation</strong><br />
+    Using HeidiSQL, I created a database named <code>osTicket</code>. Then, in the web installer, 
+    I specified the DB name, root credentials, and completed the installation. 
+    <br /><br />
+    <p align="center">
+      <img src="https://via.placeholder.com/600x350.png?text=Creating+osTicket+DB" alt="Creating osTicket DB" width="600" />
+      <br />
+      <em>Figure 2.11 – Database creation in HeidiSQL.</em>
+      <br /><br />
+      <img src="https://via.placeholder.com/600x350.png?text=osTicket+Install+Success" alt="osTicket final install success" width="600" />
+      <br />
+      <em>Figure 2.12 – osTicket successfully installed!</em>
     </p>
   </li>
 </ol>
@@ -129,8 +184,7 @@
 
 <h2>Conclusion</h2>
 <p>
-  Through this lab, I learned how to configure a cloud-hosted Windows environment in Azure, install and configure 
-  the necessary web stack components (IIS, PHP, MySQL), and deploy the osTicket help desk platform. 
-  This hands-on experience showcased the importance of correct file permissions, database integration, and 
-  user account management for a successful ticketing system.
+  At this point, osTicket is fully operational on my Windows Server VM. I can log in as an admin, 
+  configure departments, create tickets, and more. This sets the stage for deeper 
+  help desk management labs, covered in the next sections.
 </p>
